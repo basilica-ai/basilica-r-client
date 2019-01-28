@@ -1,0 +1,59 @@
+library(httr)
+library(RCurl)
+library(jsonlite)
+
+#' Basilica Connection
+#'
+#' This class constructor allows you to create a basilica connection used to create embeddings.
+#' @field auth_key Basilica API key
+#' @field server Basilica server to point to (Default: `https://api.basilica.ai`)
+#' @export
+Connection <- setRefClass("Connection",
+  fields = list(auth_key = "character", server="character", retries= "numeric", backoff_factor = "numeric"),
+
+  methods = list(
+    initialize = function(auth_key=character(), server=character(), retries=numeric(), backoff_factor=numeric()) {
+      .self$auth_key = auth_key
+      if (length(server) == 0) {
+        .self$server = "https://api.basilica.ai"
+      } else {
+        .self$server = server
+      }
+      ## TODO: Add retires and backoff_factor
+    },
+    embed_image = function(image=character(), model="generic", version="default", timeout=5) {
+      "Embed an image"
+      response <- .self$embed_images(list(image), model=model, version=version, timeout=timeout)
+      result <- response[[1]]
+    },
+    embed_images = function(images=character(), model="generic", version="default", timeout=5) {
+      url = paste(.self$server, "embed/images", model, version, sep="/")
+      data = list()
+      for (image in images){
+        f = file(image, "rb")
+        img = readBin(f, "raw", file.info(image)[1, "size"])
+        b64_image <- RCurl::base64Encode(img)
+        data <- append(data, list(list(img=b64_image[1])))
+      }
+      print(attributes(data))
+      print(data)
+      result <- .self$.embed(url, data, timeout)
+    },
+    embed_sentence = function(sentence=character(), model="english", version="default", timeout=5) {
+      "Embed a single sentence"
+      response <- .self$embed_sentences(list(sentence), model=model, version=version, timeout=timeout)
+      result <- response[[1]]
+    },
+    embed_sentences = function(sentences=list(), model="english", version="default", timeout=5) {
+      "Embed a list of sentences"
+      url = paste(.self$server, "embed/text", model, version, sep="/")
+      result <- .self$.embed(url, sentences, timeout)
+    },
+    .embed = function (url=character(), data=list(), timeout=5) {
+      authorization = paste("Bearer", .self$auth_key)
+      response <- httr::POST(url, body=list(data=data), encode="json", httr::add_headers(Authorization=authorization))
+      data <- httr::content(response)
+      result <- data$embeddings
+    }
+  )
+)
