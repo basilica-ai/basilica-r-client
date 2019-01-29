@@ -35,8 +35,6 @@ Connection <- setRefClass("Connection",
         b64_image <- RCurl::base64Encode(img)
         data <- append(data, list(list(img=b64_image[1])))
       }
-      print(attributes(data))
-      print(data)
       result <- .self$.embed(url, data, timeout)
     },
     embed_sentence = function(sentence=character(), model="english", version="default", timeout=5) {
@@ -53,7 +51,11 @@ Connection <- setRefClass("Connection",
       authorization = paste("Bearer", .self$auth_key)
       response <- httr::POST(url, body=list(data=data), encode="json", httr::add_headers(Authorization=authorization))
       data <- httr::content(response)
-      result <- data$embeddings
+      r = list()
+      for (i in seq_along(data$embeddings)) {
+        r[[i]] = unlist(data$embeddings[[i]])
+      }
+      result <- r
     }
   )
 )
