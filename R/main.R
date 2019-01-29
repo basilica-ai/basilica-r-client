@@ -55,7 +55,7 @@ Connection <- setRefClass("Connection",
       for (i in seq_along(data$embeddings)) {
         r[[i]] = unlist(data$embeddings[[i]])
       }
-      result <- r
+      result <- data.frame(r)
     }
   )
 )

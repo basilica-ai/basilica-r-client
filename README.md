@@ -27,10 +27,13 @@ sentences = list(
     "I don't think this sentence is very similar at all..."
 )
 
+# Returns a data frame with 512 features for each of the 3 sentences
 embeddings <- bc$embed_sentences(sentences)
+print(dim(embeddings)) # 512 3
 print(embeddings) # [[0.8556405305862427, ...], ...]
 
-print(dist(rbind(embeddings[[1]], embeddings[[2]])))
-print(dist(rbind(embeddings[[1]], embeddings[[3]])))
+library('lsa')
+print(cosine(embeddings[[1]], embeddings[[2]])) # 0.8048559
+print(cosine(embeddings[[1]], embeddings[[3]])) # 0.6877435
 ```
 
