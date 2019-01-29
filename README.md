@@ -28,6 +28,7 @@ sentences = list(
 )
 
 embeddings <- bc$embed_sentences(sentences)
+print(embeddings) # [[0.8556405305862427, ...], ...]
 
 print(dist(rbind(embeddings[[1]], embeddings[[2]])))
 print(dist(rbind(embeddings[[1]], embeddings[[3]])))
