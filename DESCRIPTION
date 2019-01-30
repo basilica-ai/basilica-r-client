@@ -1,17 +1,17 @@
 Package: basilica
-Title: What the Package Does (One Line, Title Case)
+Title: Basilica Client
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
+Authors@R:
+    person(given = "Jorge",
+           family = "Silva",
            role = c("aut", "cre"),
-           email = "first.last@example.com")
-Description: What the package does (one paragraph).
+           email = "jorge@basilica.ai")
+Description: Basilica allows you to turn your images and natural language text into features.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: 
+Imports:
     httr
-Suggests: 
+Suggests:
     testthat
 RoxygenNote: 6.1.1.9000
