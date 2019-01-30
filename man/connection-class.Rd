@@ -6,7 +6,7 @@
 \alias{Connection}
 \title{Basilica Connection}
 \description{
-This class constructor allows you to create a basilica connection used to create embeddings.
+Constructor for a Basilica connection. Connections are tied to a specific auth_key and other connection parameters.
 }
 \section{Fields}{
 
@@ -21,6 +21,9 @@ This class constructor allows you to create a basilica connection used to create
 \describe{
 \item{\code{embed_image(image = character(), model = "generic", version = "default",
   timeout = 5)}}{Embed an image}
+
+\item{\code{embed_images(images = character(), model = "generic", version = "default",
+  timeout = 5)}}{Embed a list of images}
 
 \item{\code{embed_sentence(sentence = character(), model = "english",
   version = "default", timeout = 5)}}{Embed a single sentence}

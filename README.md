@@ -21,7 +21,7 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 # Create a connection
 # You can use our `SLOW_DEMO_KEY` (it actually works) or create your own at basilica.ai
-bc <- new("Connection", auth_key="SLOW_DEMO_KEY")
+bc <- basilica::createConnection("SLOW_DEMO_KEY")
 ```
 
 ### Embedding a Sentence

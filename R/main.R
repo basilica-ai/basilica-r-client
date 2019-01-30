@@ -1,10 +1,9 @@
 library(httr)
 library(RCurl)
-library(jsonlite)
 
 #' Basilica Connection
 #'
-#' This class constructor allows you to create a basilica connection used to create embeddings.
+#' Constructor for a Basilica connection. Connections are tied to a specific auth_key and other connection parameters.
 #' @field auth_key Basilica API key
 #' @field server Basilica server to point to (Default: `https://api.basilica.ai`)
 #' @export
@@ -27,6 +26,7 @@ Connection <- setRefClass("Connection",
       result <- response[[1]]
     },
     embed_images = function(images=character(), model="generic", version="default", timeout=5) {
+      "Embed a list of images"
       url = paste(.self$server, "embed/images", model, version, sep="/")
       data = list()
       for (image in images){
@@ -59,3 +59,13 @@ Connection <- setRefClass("Connection",
     }
   )
 )
+
+#' createConnection
+#'
+#' Instantiates and returns a Basilica connection tied to a specific auth key and other connection parameters.
+#' @param auth_key Basilica API key
+#' @param server Basilica server to point to (Default: `https://api.basilica.ai`)
+#' @export
+createConnection <- function(auth_key=character(), server=character(), retries=numeric(), backoff_factor=numeric()) {
+  result <- new("Connection", auth_key, server, retries, backoff_factor)
+}
