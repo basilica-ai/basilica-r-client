@@ -9,7 +9,7 @@ features you can use to train or improve your models.
 You can install the released version of basilica from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("basilica")
+devtools::install_github("basilica-ai/basilica-r-client")
 ```
 
 ## Examples
