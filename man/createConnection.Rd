@@ -11,6 +11,10 @@ createConnection(auth_key = character(), server = character(),
 \item{auth_key}{Basilica API key}
 
 \item{server}{Basilica server to point to (Default: `https://api.basilica.ai`)}
+
+\item{retries}{Number of retries for any given request}
+
+\item{backoff_factor}{How much to backoff}
 }
 \description{
 Instantiates and returns a Basilica connection tied to a specific auth key and other connection parameters.

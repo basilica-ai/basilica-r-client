@@ -14,6 +14,10 @@ Constructor for a Basilica connection. Connections are tied to a specific auth_k
 \item{\code{auth_key}}{Basilica API key}
 
 \item{\code{server}}{Basilica server to point to (Default: `https://api.basilica.ai`)}
+
+\item{\code{retries}}{Number of retries for any given request}
+
+\item{\code{backoff_factor}}{How much to backoff}
 }}
 
 \section{Methods}{

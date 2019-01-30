@@ -1,14 +1,17 @@
 library(httr)
 library(RCurl)
+library(methods)
 
 #' createConnection
 #'
 #' Instantiates and returns a Basilica connection tied to a specific auth key and other connection parameters.
 #' @param auth_key Basilica API key
 #' @param server Basilica server to point to (Default: `https://api.basilica.ai`)
+#' @param retries Number of retries for any given request
+#' @param backoff_factor How much to backoff
 #' @export
 createConnection <- function(auth_key=character(), server=character(), retries=numeric(), backoff_factor=numeric()) {
-  result <- new("Connection", auth_key, server, retries, backoff_factor)
+  result <- methods::new("Connection", auth_key, server, retries, backoff_factor)
 }
 
 #' Basilica Connection
@@ -16,6 +19,8 @@ createConnection <- function(auth_key=character(), server=character(), retries=n
 #' Constructor for a Basilica connection. Connections are tied to a specific auth_key and other connection parameters.
 #' @field auth_key Basilica API key
 #' @field server Basilica server to point to (Default: `https://api.basilica.ai`)
+#' @field retries Number of retries for any given request
+#' @field backoff_factor How much to backoff
 #' @export
 Connection <- setRefClass("Connection",
   fields = list(auth_key = "character", server="character", retries= "numeric", backoff_factor = "numeric"),
