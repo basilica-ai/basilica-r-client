@@ -2,7 +2,6 @@
 
 library(httr)
 library(RCurl)
-library(methods)
 library(data.table)
 
 #' Connection
@@ -106,19 +105,6 @@ ConnectionRefClass <- setRefClass(
       result <- embed(auth_key, url, sentences, timeout)
     }
   )
-)
-
-#' Find the indices of particles labeled as identified
-#'
-#' @name Connection_which_labeled
-#' @param label one or more labels to search for
-#' @return zero or more indices of labeled items
-NULL
-ConnectionRefClass$methods(
-  which_labeled = function(label = 'none'){
-    print(label)
-    return(label)
-  }
 )
 
 embed <- function(auth_key = character(),
