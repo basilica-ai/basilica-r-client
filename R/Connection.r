@@ -1,9 +1,11 @@
+# Connection.r
+
 library(httr)
 library(RCurl)
 library(methods)
 library(data.table)
 
-#' createConnection
+#' Connection
 #'
 #' Instantiates and returns a Basilica connection tied to a specific auth key and other connection parameters.
 #' @param auth_key Basilica API key
@@ -11,12 +13,11 @@ library(data.table)
 #' @param retries Number of retries for any given request
 #' @param backoff_factor How much to backoff
 #' @export
-createConnection <- function(auth_key = character(),
+Connection <- function(auth_key = character(),
                              server = character(),
                              retries = numeric(),
                              backoff_factor = numeric()) {
-  result <-
-    methods::new("Connection", auth_key, server, retries, backoff_factor)
+  result <- ConnectionRefClass$new(auth_key, server, retries, backoff_factor)
   return(result)
 }
 
@@ -27,9 +28,14 @@ createConnection <- function(auth_key = character(),
 #' @field server Basilica server to point to (Default: `https://api.basilica.ai`)
 #' @field retries Number of retries for any given request
 #' @field backoff_factor How much to backoff
-#' @export
-Connection <- setRefClass(
-  "Connection",
+#' @name Connection_embed_sentence
+#' @param sentence character blah blah blah
+#' @param model character blah blah blah
+#' @param version character blah blah blah
+#' @param timeout numberic blah blah blah
+#' @return data.table
+ConnectionRefClass <- setRefClass(
+  "ConnectionRefClass",
   fields = list(
     auth_key = "character",
     server = "character",
@@ -100,6 +106,19 @@ Connection <- setRefClass(
       result <- embed(auth_key, url, sentences, timeout)
     }
   )
+)
+
+#' Find the indices of particles labeled as identified
+#'
+#' @name Connection_which_labeled
+#' @param label one or more labels to search for
+#' @return zero or more indices of labeled items
+NULL
+ConnectionRefClass$methods(
+  which_labeled = function(label = 'none'){
+    print(label)
+    return(label)
+  }
 )
 
 embed <- function(auth_key = character(),
