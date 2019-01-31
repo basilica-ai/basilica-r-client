@@ -13,7 +13,8 @@ LazyData: true
 Imports:
     httr,
     RCurl,
-    methods
+    methods,
+    data.table
 Suggests:
     testthat
 RoxygenNote: 6.1.1.9000

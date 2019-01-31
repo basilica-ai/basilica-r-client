@@ -1,6 +1,7 @@
 library(httr)
 library(RCurl)
 library(methods)
+library(data.table)
 
 #' createConnection
 #'
@@ -117,6 +118,6 @@ embed <- function(auth_key = character(),
   for (i in seq_along(data$embeddings)) {
     r[[i]] <- unlist(data$embeddings[[i]])
   }
-  result <- data.frame(r)
+  result <- data.table::setDT(r)
   return(result)
 }
