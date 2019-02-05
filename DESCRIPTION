@@ -13,7 +13,6 @@ LazyData: true
 Imports:
     httr,
     RCurl,
-    methods,
     data.table
 Suggests:
     testthat
