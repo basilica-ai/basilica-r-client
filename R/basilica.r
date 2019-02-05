@@ -1,6 +1,7 @@
 library(httr)
 library(RCurl)
-library(data.table)
+
+FILE_SIZE_LIMT <- 2097152
 
 #' connect
 #'
@@ -36,31 +37,35 @@ connect <- function(auth_key = character(),
 #' @param timeout Time (in seconds) before requests times out. (Default `5`)
 #' @return matrix
 #' @export
-embed_image <- function(image = character(),
+embed_image <- function(image = raw(),
                            model = "generic",
                            version = "default",
                            timeout = 5) {
   if (is.null(connection)) {
     stop("No basilica connection created. Call `basilica::connect` first.")
   }
+  if (!is.raw(image)) {
+    msg <- paste("The provided `image` is not of type `raw` (got `", typeof(image),"`)")
+    stop(msg)
+  }
   response <- embed_images(list(image),
                      model = model,
                      version = version,
                      timeout = timeout)
-  result <- response[[1]]
+  result <- response[1,]
   return(result)
 }
 
 #' embed_images
 #'
 #' Get a vector of features for a list images
-#' @param images List of file path to images (JPEG or PNG)
+#' @param images List of 
 #' @param model Name of the image model you wish to use. (Default: `generic`)
 #' @param version Version of the image model you wish to use. (Default: `default`)
 #' @param timeout Time (in seconds) before requests times out. (Default `5`)
 #' @return matrix
 #' @export
-embed_images <- function(images = character(),
+embed_images <- function(images = list(),
                             model = "generic",
                             version = "default",
                             timeout = 5) {
@@ -68,14 +73,81 @@ embed_images <- function(images = character(),
     stop("No basilica connection created. Call `basilica::connect` first.")
   }
   url <- paste(connection$server, "embed/images", model, version, sep = "/")
-  data <- list()
+  if (!is.list(images)) {
+      stop(paste("`images` must be a list raw vectors (got `", typeof(images),"`)"))
+  }
+  data = list()
   for (image in images) {
-    f <- file(image, "rb")
-    img <- readBin(f, "raw", file.info(image)[1, "size"])
-    b64_image <- RCurl::base64Encode(img)
+    if (!is.raw(image)) {
+      msg <- paste("One of the values in `images` is not of type `raw` (got `", typeof(image),"`)")
+      stop(msg)
+    }
+    if (length(image) > FILE_SIZE_LIMT) {
+      stop(paste("The size of one of the values in `images` (",length(image),") exceeds the allowed limit (",FILE_SIZE_LIMT,")."))
+    }
+    b64_image <- RCurl::base64Encode(image)
     data <- append(data, list(list(img = b64_image[1])))
   }
   result <- embed(connection$auth_key, url, data, timeout)
+  return(result)
+}
+
+#' embed_image_file
+#'
+#' Get a vector of features for an image
+#' @param image Path to an image (JPEG or PNG)
+#' @param model Name of the image model you wish to use. (Default: `generic`)
+#' @param version Version of the image model you wish to use. (Default: `default`)
+#' @param timeout Time (in seconds) before requests times out. (Default `5`)
+#' @return matrix
+#' @export
+embed_image_file <- function(image_path = character(),
+                           model = "generic",
+                           version = "default",
+                           timeout = 5) {
+  if (is.null(connection)) {
+    stop("No basilica connection created. Call `basilica::connect` first.")
+  }
+  response <- embed_image_files(image_paths = list(image_path),
+                     model = model,
+                     version = version,
+                     timeout = timeout)
+  result <- response[1,]
+  return(result)
+}
+
+#' embed_image_files
+#'
+#' Get a vector of features for a list images
+#' @param image_paths List of file path to images (JPEG or PNG)
+#' @param model Name of the image model you wish to use. (Default: `generic`)
+#' @param version Version of the image model you wish to use. (Default: `default`)
+#' @param timeout Time (in seconds) before requests times out. (Default `5`)
+#' @return matrix
+#' @export
+embed_image_files <- function(image_paths = list(),
+                            model = "generic",
+                            version = "default",
+                            timeout = 5) {
+  if (is.null(connection)) {
+    stop("No basilica connection created. Call `basilica::connect` first.")
+  }
+  data <- list()
+  for (image in image_paths) {
+    if (!file.exists(image)) {
+      stop(paste("The specified file path (",image,") doesn't exist."))
+    }
+    if (file.size(image) > FILE_SIZE_LIMT) {
+      stop(paste("The size of the specified file (",image,"/",file.size(image),") exceeds the allowed limit (",FILE_SIZE_LIMT,")."))
+    }
+    f <- file(image, "rb")
+    data <- append(data, list(readBin(f, "raw", file.info(image)[1, "size"])))
+    close(f)
+  }
+  result <- embed_images(images = data,
+                     model = model,
+                     version = version,
+                     timeout = timeout)
   return(result)
 }
 
@@ -101,7 +173,7 @@ embed_sentence <- function(sentence = character(),
     version = version,
     timeout = timeout
   )
-  result <- response[[1]]
+  result <- response[1,]
   return(result)
 }
 
@@ -135,9 +207,14 @@ embed <- function(auth_key = character(),
     url,
     body = list(data = data),
     encode = "json",
-    httr::add_headers(Authorization = authorization)
+    httr::add_headers(Authorization = authorization),
+    httr::timeout(5)
   )
+  code <- httr::status_code(response)
   data <- httr::content(response)
+  if (code != 200) {
+    stop(paste("Error while making request: ", data$error))
+  }
   r <- list()
   for (i in seq_along(data$embeddings)) {
     r[[i]] <- unlist(data$embeddings[[i]])

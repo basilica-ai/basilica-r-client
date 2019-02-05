@@ -12,8 +12,7 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     httr,
-    RCurl,
-    data.table
+    RCurl
 Suggests:
     testthat
 RoxygenNote: 6.1.1.9000
