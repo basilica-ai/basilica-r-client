@@ -2,6 +2,8 @@
 
 export(connect)
 export(embed_image)
+export(embed_image_file)
+export(embed_image_files)
 export(embed_images)
 export(embed_sentence)
 export(embed_sentences)

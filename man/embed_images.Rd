@@ -4,11 +4,11 @@
 \alias{embed_images}
 \title{embed_images}
 \usage{
-embed_images(images = character(), model = "generic",
-  version = "default", timeout = 5)
+embed_images(images = list(), model = "generic", version = "default",
+  timeout = 5)
 }
 \arguments{
-\item{images}{List of file path to images (JPEG or PNG)}
+\item{images}{List of}
 
 \item{model}{Name of the image model you wish to use. (Default: `generic`)}
 

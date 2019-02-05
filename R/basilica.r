@@ -2,6 +2,8 @@ library(httr)
 library(RCurl)
 
 FILE_SIZE_LIMT <- 2097152
+connection <- new.env()
+connection$name <- "basilica-env"
 
 #' connect
 #'
@@ -15,18 +17,65 @@ connect <- function(auth_key = character(),
                              server = character(),
                              retries = numeric(),
                              backoff_factor = numeric()) {
-  c<- list()
-  c$auth_key <- auth_key
+  connection$auth_key <- auth_key
   if (length(server) == 0) {
-    c$server <- "https://api.basilica.ai"
+    connection$server <- "https://api.basilica.ai"
   } else {
-    c$server <- server
+    connection$server <- server
   }
   ## TODO: Add retires and backoff_factor
-  c$retries <- retries
-  c$backoff_factor <- backoff_factor
-  connection <<- c
+  connection$retries <- retries
+  connection$backoff_factor <- backoff_factor
 }
+
+#' embed_sentence
+#'
+#' Get a vector of features for a sentence
+#' @param sentence Sentence or string
+#' @param model Name of the image model you wish to use. (Default: `english`)
+#' @param version Version of the image model you wish to use. (Default: `default`)
+#' @param timeout Time (in seconds) before requests times out. (Default `5`)
+#' @return matrix
+#' @export
+embed_sentence <- function(sentence = character(),
+                              model = "english",
+                              version = "default",
+                              timeout = 5) {
+  if (!exists("auth_key", envir = connection)) {
+    stop("No basilica connection created. Call `basilica::connect` first.")
+  }
+  response <- embed_sentences(
+      list(sentence),
+    model = model,
+    version = version,
+    timeout = timeout
+  )
+  result <- response[1,]
+  return(result)
+}
+
+#' embed_sentences
+#'
+#' Get a vector of features for a list of sentences
+#' @param sentences List of sentences or strings
+#' @param model Name of the image model you wish to use. (Default: `english`)
+#' @param version Version of the image model you wish to use. (Default: `default`)
+#' @param timeout Time (in seconds) before requests times out. (Default `5`)
+#' @return matrix
+#' @export
+embed_sentences = function(sentences = list(),
+                               model = "english",
+                               version = "default",
+                               timeout = 5) {
+  if (!exists("auth_key", envir = connection)) {
+    stop("No basilica connection created. Call `basilica::connect` first.")
+  }
+  url <- paste(connection$server, "embed/text", model, version, sep = "/")
+  result <- embed(connection$auth_key, url, sentences, timeout)
+  return(result)
+}
+
+
 
 #' embed_image
 #'
@@ -41,7 +90,7 @@ embed_image <- function(image = raw(),
                            model = "generic",
                            version = "default",
                            timeout = 5) {
-  if (is.null(connection)) {
+  if (!exists("auth_key", envir = connection)) {
     stop("No basilica connection created. Call `basilica::connect` first.")
   }
   if (!is.raw(image)) {
@@ -69,7 +118,7 @@ embed_images <- function(images = list(),
                             model = "generic",
                             version = "default",
                             timeout = 5) {
-  if (is.null(connection)) {
+  if (!exists("auth_key", envir = connection)) {
     stop("No basilica connection created. Call `basilica::connect` first.")
   }
   url <- paste(connection$server, "embed/images", model, version, sep = "/")
@@ -95,7 +144,7 @@ embed_images <- function(images = list(),
 #' embed_image_file
 #'
 #' Get a vector of features for an image
-#' @param image Path to an image (JPEG or PNG)
+#' @param image_path Path to an image (JPEG or PNG)
 #' @param model Name of the image model you wish to use. (Default: `generic`)
 #' @param version Version of the image model you wish to use. (Default: `default`)
 #' @param timeout Time (in seconds) before requests times out. (Default `5`)
@@ -105,7 +154,7 @@ embed_image_file <- function(image_path = character(),
                            model = "generic",
                            version = "default",
                            timeout = 5) {
-  if (is.null(connection)) {
+  if (!exists("auth_key", envir = connection)) {
     stop("No basilica connection created. Call `basilica::connect` first.")
   }
   response <- embed_image_files(image_paths = list(image_path),
@@ -129,7 +178,7 @@ embed_image_files <- function(image_paths = list(),
                             model = "generic",
                             version = "default",
                             timeout = 5) {
-  if (is.null(connection)) {
+  if (!exists("auth_key", envir = connection)) {
     stop("No basilica connection created. Call `basilica::connect` first.")
   }
   data <- list()
@@ -148,53 +197,6 @@ embed_image_files <- function(image_paths = list(),
                      model = model,
                      version = version,
                      timeout = timeout)
-  return(result)
-}
-
-#' embed_sentence
-#'
-#' Get a vector of features for a sentence
-#' @param sentence Sentence or string
-#' @param model Name of the image model you wish to use. (Default: `english`)
-#' @param version Version of the image model you wish to use. (Default: `default`)
-#' @param timeout Time (in seconds) before requests times out. (Default `5`)
-#' @return matrix
-#' @export
-embed_sentence <- function(sentence = character(),
-                              model = "english",
-                              version = "default",
-                              timeout = 5) {
-  if (is.null(connection)) {
-    stop("No basilica connection created. Call `basilica::connect` first.")
-  }
-  response <- embed_sentences(
-      list(sentence),
-    model = model,
-    version = version,
-    timeout = timeout
-  )
-  result <- response[1,]
-  return(result)
-}
-
-#' embed_sentences
-#'
-#' Get a vector of features for a list of sentences
-#' @param sentences List of sentences or strings
-#' @param model Name of the image model you wish to use. (Default: `english`)
-#' @param version Version of the image model you wish to use. (Default: `default`)
-#' @param timeout Time (in seconds) before requests times out. (Default `5`)
-#' @return matrix
-#' @export
-embed_sentences = function(sentences = list(),
-                               model = "english",
-                               version = "default",
-                               timeout = 5) {
-  if (is.null(connection)) {
-    stop("No basilica connection created. Call `basilica::connect` first.")
-  }
-  url <- paste(connection$server, "embed/text", model, version, sep = "/")
-  result <- embed(connection$auth_key, url, sentences, timeout)
   return(result)
 }
 

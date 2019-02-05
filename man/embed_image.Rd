@@ -4,8 +4,8 @@
 \alias{embed_image}
 \title{embed_image}
 \usage{
-embed_image(image = character(), model = "generic",
-  version = "default", timeout = 5)
+embed_image(image = raw(), model = "generic", version = "default",
+  timeout = 5)
 }
 \arguments{
 \item{image}{Path to an image (JPEG or PNG)}
