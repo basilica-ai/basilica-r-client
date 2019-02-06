@@ -50,7 +50,7 @@ embed_sentence <- function(sentence = character(),
     version = version,
     timeout = timeout
   )
-  result <- response[1,]
+  result <- response[1, ]
   return(result)
 }
 
@@ -70,7 +70,8 @@ embed_sentences = function(sentences = list(),
   if (!exists("auth_key", envir = connection)) {
     stop("No basilica connection created. Call `basilica::connect` first.")
   }
-  url <- paste(connection$server, "embed/text", model, version, sep = "/")
+  url <-
+    paste(connection$server, "embed/text", model, version, sep = "/")
   result <- embed(connection$auth_key, url, sentences, timeout)
   return(result)
 }
@@ -94,14 +95,17 @@ embed_image <- function(image = raw(),
     stop("No basilica connection created. Call `basilica::connect` first.")
   }
   if (!is.raw(image)) {
-    msg <- paste("The provided `image` is not of type `raw` (got `", typeof(image),"`)")
+    msg <-
+      paste("The provided `image` is not of type `raw` (got `",
+            typeof(image),
+            "`)")
     stop(msg)
   }
   response <- embed_images(list(image),
                            model = model,
                            version = version,
                            timeout = timeout)
-  result <- response[1,]
+  result <- response[1, ]
   return(result)
 }
 
@@ -121,18 +125,34 @@ embed_images <- function(images = list(),
   if (!exists("auth_key", envir = connection)) {
     stop("No basilica connection created. Call `basilica::connect` first.")
   }
-  url <- paste(connection$server, "embed/images", model, version, sep = "/")
+  url <-
+    paste(connection$server, "embed/images", model, version, sep = "/")
   if (!is.list(images)) {
-    stop(paste("`images` must be a list raw vectors (got `", typeof(images),"`)"))
+    stop(paste(
+      "`images` must be a list raw vectors (got `",
+      typeof(images),
+      "`)"
+    ))
   }
   data = list()
   for (image in images) {
     if (!is.raw(image)) {
-      msg <- paste("One of the values in `images` is not of type `raw` (got `", typeof(image),"`)")
+      msg <-
+        paste("One of the values in `images` is not of type `raw` (got `",
+              typeof(image),
+              "`)")
       stop(msg)
     }
     if (length(image) > FILE_SIZE_LIMT) {
-      stop(paste("The size of one of the values in `images` (",length(image),") exceeds the allowed limit (",FILE_SIZE_LIMT,")."))
+      stop(
+        paste(
+          "The size of one of the values in `images` (",
+          length(image),
+          ") exceeds the allowed limit (",
+          FILE_SIZE_LIMT,
+          ")."
+        )
+      )
     }
     b64_image <- RCurl::base64Encode(image)
     data <- append(data, list(list(img = b64_image[1])))
@@ -157,11 +177,13 @@ embed_image_file <- function(image_path = character(),
   if (!exists("auth_key", envir = connection)) {
     stop("No basilica connection created. Call `basilica::connect` first.")
   }
-  response <- embed_image_files(image_paths = list(image_path),
-                                model = model,
-                                version = version,
-                                timeout = timeout)
-  result <- response[1,]
+  response <- embed_image_files(
+    image_paths = list(image_path),
+    model = model,
+    version = version,
+    timeout = timeout
+  )
+  result <- response[1, ]
   return(result)
 }
 
@@ -184,19 +206,32 @@ embed_image_files <- function(image_paths = list(),
   data <- list()
   for (image in image_paths) {
     if (!file.exists(image)) {
-      stop(paste("The specified file path (",image,") doesn't exist."))
+      stop(paste("The specified file path (", image, ") doesn't exist."))
     }
     if (file.size(image) > FILE_SIZE_LIMT) {
-      stop(paste("The size of the specified file (",image,"/",file.size(image),") exceeds the allowed limit (",FILE_SIZE_LIMT,")."))
+      stop(
+        paste(
+          "The size of the specified file (",
+          image,
+          "/",
+          file.size(image),
+          ") exceeds the allowed limit (",
+          FILE_SIZE_LIMT,
+          ")."
+        )
+      )
     }
     f <- file(image, "rb")
-    data <- append(data, list(readBin(f, "raw", file.info(image)[1, "size"])))
+    data <-
+      append(data, list(readBin(f, "raw", file.info(image)[1, "size"])))
     close(f)
   }
-  result <- embed_images(images = data,
-                         model = model,
-                         version = version,
-                         timeout = timeout)
+  result <- embed_images(
+    images = data,
+    model = model,
+    version = version,
+    timeout = timeout
+  )
   return(result)
 }
 
@@ -221,6 +256,6 @@ embed <- function(auth_key = character(),
   for (i in seq_along(data$embeddings)) {
     r[[i]] <- unlist(data$embeddings[[i]])
   }
-  result <- do.call(rbind,r)
+  result <- do.call(rbind, r)
   return(result)
 }

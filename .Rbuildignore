@@ -2,3 +2,4 @@
 ^LICENSE\.md$
 ^basilica\.Rproj$
 ^\.Rproj\.user$
+inst/extdata/cat-over-size-limit.jpg
