@@ -1,0 +1,27 @@
+---
+title: "Training a logistic regression from Twitter comments"
+author: "Jorge Silva"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Training a logistic from Twitter comments}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Training a logistic regression from Twitter comments
+
+## Step 1: Embeddings all tweets
+
+## Step 2: Running PCA
+
+## Step 3: Training the model
+
+## Step 4: Verifying Results

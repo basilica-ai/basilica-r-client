@@ -1,7 +1,7 @@
 context("test-main")
 
-AUTH_KEY <- '28c4dab5-27f1-52a7-508e-527dd234224c'
-SERVER <- "http://api.localhost:8000"
+AUTH_KEY <- '05e19f1c-39de-ed9c-ae42-feab42f5f84d'
+SERVER <- "https://api.basilica.ai"
 
 CAT_PATH <- system.file("extdata", "cat.jpg", package = "basilica")
 CAT2_PATH <- system.file("extdata", "cat2.jpg", package = "basilica")

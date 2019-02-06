@@ -1,11 +1,23 @@
-title: Creating a logistic regression using natural language text
+---
+title: "Working with text"
+author: "Jorge Silva"
+date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Creating a logistic regression using natural language text}
+  %\VignetteIndexEntry{Working with text}
   %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
 ---
 
-# Creating a logistic regression using natural language text
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
-Hello world.
+# Working with Text
+
+## Length of your strings
+
+## Feeding text embeddings into your model

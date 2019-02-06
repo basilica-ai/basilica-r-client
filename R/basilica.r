@@ -2,6 +2,8 @@ library(httr)
 library(RCurl)
 
 FILE_SIZE_LIMT <- 2097152
+USER_AGENT <- paste("Basilica R Client (", packageVersion("basilica") ,")")
+
 connection <- new.env()
 connection$name <- "basilica-env"
 
@@ -244,7 +246,7 @@ embed <- function(auth_key = character(),
     url,
     body = list(data = data),
     encode = "json",
-    httr::add_headers(Authorization = authorization),
+    httr::add_headers(Authorization = authorization, "User-Agent" = USER_AGENT),
     httr::timeout(5)
   )
   code <- httr::status_code(response)
