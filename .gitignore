@@ -1,7 +1,7 @@
-inst/doc
 Meta
 doc
 .Rproj.user
+*.Rproj
 .Rhistory
 .RData
-basilica.Rcheck
+basilica.Rcheck/
