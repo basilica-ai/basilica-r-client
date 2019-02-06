@@ -14,9 +14,9 @@ connection$name <- "basilica-env"
 #' @param backoff_factor How much to backoff
 #' @export
 connect <- function(auth_key = character(),
-                             server = character(),
-                             retries = numeric(),
-                             backoff_factor = numeric()) {
+                    server = character(),
+                    retries = numeric(),
+                    backoff_factor = numeric()) {
   connection$auth_key <- auth_key
   if (length(server) == 0) {
     connection$server <- "https://api.basilica.ai"
@@ -38,14 +38,14 @@ connect <- function(auth_key = character(),
 #' @return matrix
 #' @export
 embed_sentence <- function(sentence = character(),
-                              model = "english",
-                              version = "default",
-                              timeout = 5) {
+                           model = "english",
+                           version = "default",
+                           timeout = 5) {
   if (!exists("auth_key", envir = connection)) {
     stop("No basilica connection created. Call `basilica::connect` first.")
   }
   response <- embed_sentences(
-      list(sentence),
+    list(sentence),
     model = model,
     version = version,
     timeout = timeout
@@ -64,9 +64,9 @@ embed_sentence <- function(sentence = character(),
 #' @return matrix
 #' @export
 embed_sentences = function(sentences = list(),
-                               model = "english",
-                               version = "default",
-                               timeout = 5) {
+                           model = "english",
+                           version = "default",
+                           timeout = 5) {
   if (!exists("auth_key", envir = connection)) {
     stop("No basilica connection created. Call `basilica::connect` first.")
   }
@@ -87,9 +87,9 @@ embed_sentences = function(sentences = list(),
 #' @return matrix
 #' @export
 embed_image <- function(image = raw(),
-                           model = "generic",
-                           version = "default",
-                           timeout = 5) {
+                        model = "generic",
+                        version = "default",
+                        timeout = 5) {
   if (!exists("auth_key", envir = connection)) {
     stop("No basilica connection created. Call `basilica::connect` first.")
   }
@@ -98,9 +98,9 @@ embed_image <- function(image = raw(),
     stop(msg)
   }
   response <- embed_images(list(image),
-                     model = model,
-                     version = version,
-                     timeout = timeout)
+                           model = model,
+                           version = version,
+                           timeout = timeout)
   result <- response[1,]
   return(result)
 }
@@ -108,22 +108,22 @@ embed_image <- function(image = raw(),
 #' embed_images
 #'
 #' Get a vector of features for a list images
-#' @param images List of 
+#' @param images List of
 #' @param model Name of the image model you wish to use. (Default: `generic`)
 #' @param version Version of the image model you wish to use. (Default: `default`)
 #' @param timeout Time (in seconds) before requests times out. (Default `5`)
 #' @return matrix
 #' @export
 embed_images <- function(images = list(),
-                            model = "generic",
-                            version = "default",
-                            timeout = 5) {
+                         model = "generic",
+                         version = "default",
+                         timeout = 5) {
   if (!exists("auth_key", envir = connection)) {
     stop("No basilica connection created. Call `basilica::connect` first.")
   }
   url <- paste(connection$server, "embed/images", model, version, sep = "/")
   if (!is.list(images)) {
-      stop(paste("`images` must be a list raw vectors (got `", typeof(images),"`)"))
+    stop(paste("`images` must be a list raw vectors (got `", typeof(images),"`)"))
   }
   data = list()
   for (image in images) {
@@ -151,16 +151,16 @@ embed_images <- function(images = list(),
 #' @return matrix
 #' @export
 embed_image_file <- function(image_path = character(),
-                           model = "generic",
-                           version = "default",
-                           timeout = 5) {
+                             model = "generic",
+                             version = "default",
+                             timeout = 5) {
   if (!exists("auth_key", envir = connection)) {
     stop("No basilica connection created. Call `basilica::connect` first.")
   }
   response <- embed_image_files(image_paths = list(image_path),
-                     model = model,
-                     version = version,
-                     timeout = timeout)
+                                model = model,
+                                version = version,
+                                timeout = timeout)
   result <- response[1,]
   return(result)
 }
@@ -175,9 +175,9 @@ embed_image_file <- function(image_path = character(),
 #' @return matrix
 #' @export
 embed_image_files <- function(image_paths = list(),
-                            model = "generic",
-                            version = "default",
-                            timeout = 5) {
+                              model = "generic",
+                              version = "default",
+                              timeout = 5) {
   if (!exists("auth_key", envir = connection)) {
     stop("No basilica connection created. Call `basilica::connect` first.")
   }
@@ -194,9 +194,9 @@ embed_image_files <- function(image_paths = list(),
     close(f)
   }
   result <- embed_images(images = data,
-                     model = model,
-                     version = version,
-                     timeout = timeout)
+                         model = model,
+                         version = version,
+                         timeout = timeout)
   return(result)
 }
 
