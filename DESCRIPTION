@@ -1,5 +1,5 @@
 Package: basilica
-Title: Basilica R Client
+Title: Basilica
 Version: 0.0.0.9000
 Authors@R:
     person(given = "Jorge",
@@ -16,5 +16,8 @@ Imports:
     httr,
     RCurl
 Suggests:
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 RoxygenNote: 6.1.1.9000
+VignetteBuilder: knitr

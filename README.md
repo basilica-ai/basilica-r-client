@@ -1,4 +1,4 @@
-# Basilica R Client
+# Basilica
 
 [Basilica](www.basilica.ai) allows you to easily augment your models with images and text. You send
 us an image or a snippet of natural language text and we send you a vector of
@@ -49,4 +49,27 @@ print(dor(embeddings[1,], embeddings[3,])) # 0.6877435
 embeddings <- embed_image("/tmp/image.jpg")
 print(dim(embeddings)) # 1 2048
 print(embeddings) # [[0.8556405305862427, ...], ...]
+```
+
+## Development
+
+### Setup
+
+```
+brew install qpdf
+```
+
+```r
+install.packages("devtools")
+install.packages("usethis")
+install.packages("testthat")
+```
+
+### Building
+
+```
+devtools::test()
+devtools::document()
+devtools::build_vignettes()
+devtools::check()
 ```

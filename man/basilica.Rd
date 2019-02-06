@@ -4,7 +4,7 @@
 \name{basilica}
 \alias{basilica}
 \alias{basilica-package}
-\title{Basilica R Client}
+\title{Basilica}
 \description{
 Basilica allows you to turn your images and natural language text into features.
 }
@@ -49,7 +49,7 @@ print(dim(embeddings)) # 3 512
 print(embeddings) # [[0.8556405305862427, ...], ...]
 
 print(cor(embeddings[1,], embeddings[2,])) # 0.8048559
-print(dor(embeddings[1,], embeddings[3,])) # 0.6877435
+print(cor(embeddings[1,], embeddings[3,])) # 0.6877435
 
 }
 \seealso{

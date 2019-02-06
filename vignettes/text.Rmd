@@ -1,0 +1,11 @@
+title: Creating a logistic regression using natural language text
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Creating a logistic regression using natural language text}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+# Creating a logistic regression using natural language text
+
+Hello world.
