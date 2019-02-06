@@ -259,3 +259,45 @@ embed <- function(auth_key = character(),
   result <- do.call(rbind, r)
   return(result)
 }
+
+#' Basilica R Client
+#'
+#' @section Creating an API key:
+#'
+#' You can use basilica with our "SLOW_DEMO_KEY", which is an evaluation key with
+#' a limit of 5,000 requests per week per IP address. You can create an API key
+#' for free at www.basilica.ai, which will give you more requests.
+#'
+#' @section How many data points do I need?:
+#'
+#' For training your own models with embeddings provided by Basilica, you should
+#' have around 1,000 data points. The more data points the better though. Some
+#' models might have good results with less data, while others might need more.
+#'
+#' @section What do these features mean?:
+#'
+#' The features provided by Basilica are points in high-dimensional space where
+#' two points that are considered similar. These embeddings are trained through
+#' deep neural networks trained on a variety of tasks with millions of data
+#' points. Go to https://www.basilica.ai/available-embeddings/ to read more about
+#' our different embeddings.
+#' @examples
+#' library(basilica)
+#' connect("SLOW_DEMO_KEY")
+#'
+#' sentences = list(
+#'    "This is a sentence!",
+#'    "This is a similar sentence!",
+#'    "I don't think this sentence is very similar at all..."
+#' )
+#'
+#' embeddings <- embed_sentences(sentences)
+#' print(dim(embeddings)) # 3 512
+#' print(embeddings) # [[0.8556405305862427, ...], ...]
+#'
+#' print(cor(embeddings[1,], embeddings[2,])) # 0.8048559
+#' print(dor(embeddings[1,], embeddings[3,])) # 0.6877435
+#'
+#' @docType package
+#' @name basilica
+"_PACKAGE"

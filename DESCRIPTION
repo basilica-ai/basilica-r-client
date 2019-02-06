@@ -1,5 +1,5 @@
 Package: basilica
-Title: Basilica Client
+Title: Basilica R Client
 Version: 0.0.0.9000
 Authors@R:
     person(given = "Jorge",
@@ -8,6 +8,8 @@ Authors@R:
            email = "jorge@basilica.ai")
 Description: Basilica allows you to turn your images and natural language text into features.
 License: MIT + file LICENSE
+URL: https://www.basilica.ai
+BugReports: https://github.com/basilica-ai/basilica-r-client/issues
 Encoding: UTF-8
 LazyData: true
 Imports:
