@@ -25,7 +25,7 @@ per user account.
 To run this example, you will need the following packages.
 
 ```
-install.packages("basilica", "dplyr", "stats")
+install.packages("basilica", "dplyr", "ROCR")
 ```
 
 ## Step 1: Embedding all tweets
@@ -70,21 +70,20 @@ data into training and test data.
     train_index <- as.numeric(rownames(train_data))
     test_data <- features[-train_index, ]
 
-    library('stats')
-    model <- lm(formula = type ~ ., data = train_data)
+    model <- glm(type ~ ., data = train_data, family = "binomial")
 
 ## Step 4: Verifying Results
 
-After training the model, we can verify who well it's trained by getting the R 
-squared and calculating the correlation accuracy.
+After training the model, we can verify who well it's trained by taking a look at
+the confusion matrix.
 
-    r_squared <- summary(model)$r.squared
-    print(r_squared)
+    predict <- predict(model, newdata=test_data, type = 'response')
+    table(train_data$type, predict > 0.5)
 
-    predictions <- predict(model, test_data)
-    actuals_preds <- data.frame(cbind(actuals=test_data$type, predicteds=predictions))
-    correlation_accuracy <- cor(actuals_preds)
-    print(correlation_accuracy)
+    library(ROCR)
+    ROCRpred <- prediction(predict, test_data$type)
+    ROCRperf <- performance(ROCRpred, 'tpr','fpr')
+    plot(ROCRperf, colorize = TRUE, text.adj = c(-0.2,1.7))
 
 You have now trained a logistic regression with only the natural language text
 of the tweets and 800 data points per category and getting an R squared of about `0.80`.
