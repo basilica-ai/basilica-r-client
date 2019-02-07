@@ -1,4 +1,4 @@
-# Basilica
+# Basilica R Client: Deep Feature Extraction for Images and Text
 
 [Basilica](www.basilica.ai) allows you to easily augment your models with images and text. You send
 us an image or a snippet of natural language text and we send you a vector of
@@ -18,6 +18,10 @@ This is a basic example which shows you how to solve a common problem:
 
 ### Creating a Connection
 
+Before embedding an image or text (getting a vector of features), you must first
+connect to the API with a demo key. `SLOW_DEMO_KEY` is a key you can use for
+testing with a low per-week limit, but you can create API keys for free at [www.basilica.ai](https://www.basilica.ai/register).
+
 ``` r
 library('basilica')
 # Create a connection
@@ -25,7 +29,9 @@ library('basilica')
 connect("SLOW_DEMO_KEY")
 ```
 
-### Embedding a Sentence
+### Embedding Text
+
+Getting a vector of features for text:
 
 ```r
 sentences = list(
@@ -43,7 +49,18 @@ print(cor(embeddings[1,], embeddings[2,])) # 0.8048559
 print(dor(embeddings[1,], embeddings[3,])) # 0.6877435
 ```
 
+#### Differences from Word2Vec
+
+It's important to know that the embedding you get for a sentence is completely
+different from an embedding you would get with Word2Vec. Word2Vec returns a
+word-level embedding, while basilica is trained on longer snippets of natural
+language text (phrases, sentences, paragraphs). For that reason, results on models
+where the context of the sentence matter (like sentiment analysis) will get much
+better results with a sentence-level embedding than with a word embedding.
+
 ### Embedding an Image
+
+Getting a vector of features for images:
 
 ```r
 embeddings <- embed_image("/tmp/image.jpg")
@@ -52,6 +69,9 @@ print(embeddings) # [[0.8556405305862427, ...], ...]
 ```
 
 ## Development
+
+If you want to contribute to this client, here's are some of the libraries and
+commands you will need:
 
 ### Setup
 
@@ -66,6 +86,8 @@ install.packages("testthat")
 ```
 
 ### Building
+
+When on a branch, make sure all these commands work and pass.
 
 ```
 devtools::test()
