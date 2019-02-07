@@ -16,8 +16,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Working with Text: Basic Usage
-
 Basilica provides 2 functions for working with images:
 
 - `embed_sentence`

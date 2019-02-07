@@ -16,8 +16,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Training a logistic regression from Twitter comments
-
 In this example, we'll train a logistic regression to classify tweets using only
 the natural language text found in these tweets. We'll only need about 800 tweets
 per user account.
@@ -30,7 +28,7 @@ To run this example, you will need the following packages.
 install.packages("basilica", "dplyr", "stats")
 ```
 
-## Step 1: Embeddings all tweets
+## Step 1: Embedding all tweets
 
 We'll use a collection of about 800 tweets from Bill Gates and Kanye West and
 train a logistic regression to predict (given a tweet) which account the tweet

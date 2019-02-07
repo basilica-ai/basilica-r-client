@@ -16,8 +16,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Working with Images: Basic Usage
-
 Basilica provides 4 functions for working with images:
 
 - `embed_image`
