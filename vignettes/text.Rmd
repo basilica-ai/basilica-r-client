@@ -4,7 +4,7 @@ author: "Jorge Silva"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Working with text}
+  %\VignetteIndexEntry{Working with text: Basic Usage}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,8 +16,52 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Working with Text
+# Working with Text: Basic Usage
 
-## Length of your strings
+Basilica provides 2 functions for working with images:
 
-## Feeding text embeddings into your model
+- `embed_sentence`
+- `embed_sentences`
+
+The `embed_sentence` function takes a single `characther` vector (a string) and
+returns a vector of features. The `embed_sentences` functions takes a list of
+`character` vectors returns a matrix with a feature vector on every row.
+
+#### `embed_sentece`
+
+```r
+sentences <- list(
+  "This is a sentence!",
+  "This is a similar sentence!",
+  "I don't think this sentence is very similar at all..."
+)
+
+library('basilica')
+connect("SLOW_DEMO_KEY")
+
+embeddings <- list()
+embeddings[[1]] <- embed_sentence(sentence[[1]])
+embeddings[[2]] <- embed_sentence(sentence[[2]])
+embeddings[[3]] <- embed_sentence(sentence[[3]])
+
+print(cor(embeddings[[1]], embeddings[[2]]))
+print(cor(embeddings[[1]], embeddings[[3]]))
+```
+
+#### `embed_senteces`
+
+```r
+sentences <- list(
+  "This is a sentence!",
+  "This is a similar sentence!",
+  "I don't think this sentence is very similar at all..."
+)
+
+library('basilica')
+connect("SLOW_DEMO_KEY")
+
+embeddings <- embed_sentences(sentences)
+
+print(cor(embeddings[1,], embeddings[2,]))
+print(cor(embeddings[1,], embeddings[3,]))
+```

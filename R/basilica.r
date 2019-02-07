@@ -136,7 +136,7 @@ embed_images <- function(images = list(),
       "`)"
     ))
   }
-  data = list()
+  data <- list()
   for (image in images) {
     if (!is.raw(image)) {
       msg <-
@@ -287,7 +287,7 @@ embed <- function(auth_key = character(),
 #' library(basilica)
 #' connect("SLOW_DEMO_KEY")
 #'
-#' sentences = list(
+#' sentences <- list(
 #'    "This is a sentence!",
 #'    "This is a similar sentence!",
 #'    "I don't think this sentence is very similar at all..."

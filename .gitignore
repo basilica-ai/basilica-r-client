@@ -5,3 +5,4 @@ doc
 .Rhistory
 .RData
 basilica.Rcheck/
+.Renviron
