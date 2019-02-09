@@ -34,7 +34,7 @@ connect("SLOW_DEMO_KEY")
 Getting a vector of features for text:
 
 ```r
-sentences = list(
+sentences = c(
     "This is a sentence!",
     "This is a similar sentence!",
     "I don't think this sentence is very similar at all..."
@@ -46,7 +46,7 @@ print(dim(embeddings)) # 3 512
 print(embeddings) # [[0.8556405305862427, ...], ...]
 
 print(cor(embeddings[1,], embeddings[2,])) # 0.8048559
-print(dor(embeddings[1,], embeddings[3,])) # 0.6877435
+print(cor(embeddings[1,], embeddings[3,])) # 0.6877435
 ```
 
 #### Differences from Word2Vec
