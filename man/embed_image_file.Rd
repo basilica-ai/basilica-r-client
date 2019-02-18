@@ -5,7 +5,7 @@
 \title{embed_image_file}
 \usage{
 embed_image_file(image_path = character(), model = "generic",
-  version = "default", timeout = 5)
+  version = "default", conn = environment(), timeout = 5)
 }
 \arguments{
 \item{image_path}{Path to an image (JPEG or PNG)}
@@ -13,6 +13,8 @@ embed_image_file(image_path = character(), model = "generic",
 \item{model}{Name of the image model you wish to use. (Default: `generic`)}
 
 \item{version}{Version of the image model you wish to use. (Default: `default`)}
+
+\item{conn}{Basilica connection. Must be created with the `connect` function (Default: Global `basilica_connection`)}
 
 \item{timeout}{Time (in seconds) before requests times out. (Default `5`)}
 }

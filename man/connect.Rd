@@ -16,6 +16,9 @@ connect(auth_key = character(), server = character(),
 
 \item{backoff_factor}{How much to backoff}
 }
+\value{
+environment
+}
 \description{
 Instantiates and returns a Basilica connection tied to a specific auth key and other connection parameters.
 }

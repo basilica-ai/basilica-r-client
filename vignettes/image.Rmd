@@ -57,7 +57,7 @@ download.file("https://www.basilica.ai/static/images/tutorial/cat-test-1.jpg", "
 library('basilica')
 connect("SLOW_DEMO_KEY")
 
-embeddings = embed_image_files(list("/tmp/dog1.jpg", "/tmp/dog2.jpg", "/tmp/cat.jpg"))
+embeddings = embed_image_files(c("/tmp/dog1.jpg", "/tmp/dog2.jpg", "/tmp/cat.jpg"))
 
 print(cor(embeddings[1,], embeddings[2,]))
 print(cor(embeddings[1,], embeddings[3,]))

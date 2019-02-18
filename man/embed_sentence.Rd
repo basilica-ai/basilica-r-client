@@ -5,7 +5,7 @@
 \title{embed_sentence}
 \usage{
 embed_sentence(sentence = character(), model = "english",
-  version = "default", timeout = 5)
+  version = "default", conn = environment(), timeout = 5)
 }
 \arguments{
 \item{sentence}{Sentence or string}
@@ -13,6 +13,8 @@ embed_sentence(sentence = character(), model = "english",
 \item{model}{Name of the image model you wish to use. (Default: `english`)}
 
 \item{version}{Version of the image model you wish to use. (Default: `default`)}
+
+\item{conn}{Basilica connection. Must be created with the `connect` function (Default: Global `basilica_connection`)}
 
 \item{timeout}{Time (in seconds) before requests times out. (Default `5`)}
 }

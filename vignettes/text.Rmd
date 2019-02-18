@@ -28,7 +28,7 @@ returns a vector of features. The `embed_sentences` functions takes a list of
 #### `embed_sentece`
 
 ```r
-sentences <- list(
+sentences <- c(
   "This is a sentence!",
   "This is a similar sentence!",
   "I don't think this sentence is very similar at all..."
@@ -49,7 +49,7 @@ print(cor(embeddings[[1]], embeddings[[3]]))
 #### `embed_senteces`
 
 ```r
-sentences <- list(
+sentences <- c(
   "This is a sentence!",
   "This is a similar sentence!",
   "I don't think this sentence is very similar at all..."

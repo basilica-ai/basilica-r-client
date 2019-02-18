@@ -36,15 +36,15 @@ our different embeddings.
 
 \examples{
 library(basilica)
-connect("SLOW_DEMO_KEY")
+conn <- connect("SLOW_DEMO_KEY")
 
-sentences <- list(
+sentences <- c(
    "This is a sentence!",
    "This is a similar sentence!",
    "I don't think this sentence is very similar at all..."
 )
 
-embeddings <- embed_sentences(sentences)
+embeddings <- embed_sentences(sentences, conn=conn)
 print(dim(embeddings)) # 3 512
 print(embeddings) # [[0.8556405305862427, ...], ...]
 

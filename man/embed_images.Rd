@@ -5,14 +5,16 @@
 \title{embed_images}
 \usage{
 embed_images(images = list(), model = "generic", version = "default",
-  timeout = 5)
+  conn = environment(), timeout = 5)
 }
 \arguments{
-\item{images}{List of}
+\item{images}{List of raw vectors read from image files (JPEG or PNG)}
 
 \item{model}{Name of the image model you wish to use. (Default: `generic`)}
 
 \item{version}{Version of the image model you wish to use. (Default: `default`)}
+
+\item{conn}{Basilica connection. Must be created with the `connect` function (Default: Global `basilica_connection`)}
 
 \item{timeout}{Time (in seconds) before requests times out. (Default `5`)}
 }
