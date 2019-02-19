@@ -9,17 +9,20 @@ basilica_connection$name <- "basilica-env"
 
 #' connect
 #'
-#' Instantiates and returns a Basilica connection tied to a specific auth key and other connection parameters.
+#' Instantiates and returns a Basilica connection tied to a specific auth key and server. It also populates a global `basilica_connection` that is a copy of the returned connection. If a `conn` argument is not passed to an `embed_*` function, this global connection will be used.
 #' @param auth_key Basilica API key
 #' @param server Basilica server to point to (Default: `https://api.basilica.ai`)
-#' @param retries Number of retries for any given request
-#' @param backoff_factor How much to backoff
 #' @return environment
 #' @export
+#' @examples
+#' conn <- connect("SLOW_DEMO_KEY") # Create a connection to pass to functions
+#' embeddings <- embed_sentences(c("hello world"), conn=conn)
+#'
+#' connect("SLOW_DEMO_KEY") # Populate the global connection
+#' embeddings <- embed_sentences(c("hello world"))
+#' embeddings <- embed_sentences(c("hello world")) # Will both use the same global connection
 connect <- function(auth_key = character(),
-                    server = character(),
-                    retries = numeric(),
-                    backoff_factor = numeric()) {
+                    server = character()) {
   if (length(auth_key) == 0 || nchar(auth_key) == 0) {
     stop("An `auth_key` must be provided.")
   }
@@ -29,9 +32,6 @@ connect <- function(auth_key = character(),
   } else {
     basilica_connection$server <- server
   }
-  ## TODO: Add retires and backoff_factor
-  basilica_connection$retries <- retries
-  basilica_connection$backoff_factor <- backoff_factor
   result <- as.environment(as.list(basilica_connection, all.names=TRUE))
   return(result)
 }

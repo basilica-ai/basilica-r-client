@@ -35,12 +35,12 @@ download.file("https://www.basilica.ai/static/images/tutorial/dog-test-2.jpg", "
 download.file("https://www.basilica.ai/static/images/tutorial/cat-test-1.jpg", "/tmp/cat.jpg")
 
 library('basilica')
-connect("SLOW_DEMO_KEY")
+conn <- connect("SLOW_DEMO_KEY")
 
 embeddings = list()
-embeddings[[1]] = embed_image_file("/tmp/dog1.jpg")
-embeddings[[2]] = embed_image_file("/tmp/dog2.jpg")
-embeddings[[3]] = embed_image_file("/tmp/cat.jpg")
+embeddings[[1]] = embed_image_file("/tmp/dog1.jpg", conn=conn)
+embeddings[[2]] = embed_image_file("/tmp/dog2.jpg", conn=conn)
+embeddings[[3]] = embed_image_file("/tmp/cat.jpg", conn=conn)
 
 print(cor(embeddings[[1]], embeddings[[2]]))
 print(cor(embeddings[[1]], embeddings[[3]]))
@@ -55,9 +55,9 @@ download.file("https://www.basilica.ai/static/images/tutorial/cat-test-1.jpg", "
 
 
 library('basilica')
-connect("SLOW_DEMO_KEY")
+conn <- connect("SLOW_DEMO_KEY")
 
-embeddings = embed_image_files(c("/tmp/dog1.jpg", "/tmp/dog2.jpg", "/tmp/cat.jpg"))
+embeddings = embed_image_files(c("/tmp/dog1.jpg", "/tmp/dog2.jpg", "/tmp/cat.jpg"), conn=conn)
 
 print(cor(embeddings[1,], embeddings[2,]))
 print(cor(embeddings[1,], embeddings[3,]))
@@ -71,24 +71,24 @@ download.file("https://www.basilica.ai/static/images/tutorial/dog-test-2.jpg", "
 download.file("https://www.basilica.ai/static/images/tutorial/cat-test-1.jpg", "/tmp/cat.jpg")
 
 library('basilica')
-connect("SLOW_DEMO_KEY")
+conn <- connect("SLOW_DEMO_KEY")
 
 embeddings = list()
 
 f <- file("/tmp/dog1.jpg", "rb")
 dog1_raw <- readBin(f, "raw", file.info("/tmp/dog1.jpg")[1, "size"])
 close(f)
-embeddings[[1]] = embed_image(dog1_raw)
+embeddings[[1]] = embed_image(dog1_raw, conn=conn)
 
 f <- file("/tmp/dog2.jpg", "rb")
 dog2_raw <- readBin(f, "raw", file.info("/tmp/dog2.jpg")[1, "size"])
 close(f)
-embeddings[[2]] = embed_image(dog2_raw)
+embeddings[[2]] = embed_image(dog2_raw, conn=conn)
 
 f <- file("/tmp/cat.jpg", "rb")
 cat_raw <- readBin(f, "raw", file.info("/tmp/cat.jpg")[1, "size"])
 close(f)
-embeddings[[3]] = embed_image(cat_raw)
+embeddings[[3]] = embed_image(cat_raw, conn=conn)
 
 print(cor(embeddings[[1]], embeddings[[2]]))
 print(cor(embeddings[[1]], embeddings[[3]]))
@@ -102,7 +102,7 @@ download.file("https://www.basilica.ai/static/images/tutorial/dog-test-2.jpg", "
 download.file("https://www.basilica.ai/static/images/tutorial/cat-test-1.jpg", "/tmp/cat.jpg")
 
 library('basilica')
-connect("SLOW_DEMO_KEY")
+conn <- connect("SLOW_DEMO_KEY")
 
 embeddings = list()
 
@@ -118,7 +118,7 @@ f <- file("/tmp/cat.jpg", "rb")
 cat_raw <- readBin(f, "raw", file.info("/tmp/cat.jpg")[1, "size"])
 close(f)
 
-embeddings = embed_images(list(dog1_raw, dog2_raw, cat_raw))
+embeddings = embed_images(list(dog1_raw, dog2_raw, cat_raw), conn=conn)
 
 print(cor(embeddings[1,], embeddings[2,]))
 print(cor(embeddings[1,], embeddings[3,]))

@@ -4,21 +4,24 @@
 \alias{connect}
 \title{connect}
 \usage{
-connect(auth_key = character(), server = character(),
-  retries = numeric(), backoff_factor = numeric())
+connect(auth_key = character(), server = character())
 }
 \arguments{
 \item{auth_key}{Basilica API key}
 
 \item{server}{Basilica server to point to (Default: `https://api.basilica.ai`)}
-
-\item{retries}{Number of retries for any given request}
-
-\item{backoff_factor}{How much to backoff}
 }
 \value{
 environment
 }
 \description{
-Instantiates and returns a Basilica connection tied to a specific auth key and other connection parameters.
+Instantiates and returns a Basilica connection tied to a specific auth key and server. It also populates a global `basilica_connection` that is a copy of the returned connection. If a `conn` argument is not passed to an `embed_*` function, this global connection will be used.
+}
+\examples{
+conn <- connect("SLOW_DEMO_KEY") # Create a connection to pass to functions
+embeddings <- embed_sentences(c("hello world"), conn=conn)
+
+connect("SLOW_DEMO_KEY") # Populate the global connection
+embeddings <- embed_sentences(c("hello world"))
+embeddings <- embed_sentences(c("hello world")) # Will both use the same global connection
 }

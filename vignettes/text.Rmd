@@ -35,12 +35,12 @@ sentences <- c(
 )
 
 library('basilica')
-connect("SLOW_DEMO_KEY")
+conn <- connect("SLOW_DEMO_KEY")
 
 embeddings <- list()
-embeddings[[1]] <- embed_sentence(sentence[[1]])
-embeddings[[2]] <- embed_sentence(sentence[[2]])
-embeddings[[3]] <- embed_sentence(sentence[[3]])
+embeddings[[1]] <- embed_sentence(sentence[[1]], conn=conn)
+embeddings[[2]] <- embed_sentence(sentence[[2]], conn=conn)
+embeddings[[3]] <- embed_sentence(sentence[[3]], conn=conn)
 
 print(cor(embeddings[[1]], embeddings[[2]]))
 print(cor(embeddings[[1]], embeddings[[3]]))
@@ -56,9 +56,9 @@ sentences <- c(
 )
 
 library('basilica')
-connect("SLOW_DEMO_KEY")
+conn <- connect("SLOW_DEMO_KEY")
 
-embeddings <- embed_sentences(sentences)
+embeddings <- embed_sentences(sentences, conn=conn)
 
 print(cor(embeddings[1,], embeddings[2,]))
 print(cor(embeddings[1,], embeddings[3,]))

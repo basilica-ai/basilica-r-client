@@ -26,7 +26,7 @@ testing with a low per-week limit, but you can create API keys for free at [www.
 library('basilica')
 # Create a connection
 # You can use our `SLOW_DEMO_KEY` (it actually works) or create your own at basilica.ai
-connect("SLOW_DEMO_KEY")
+conn <- connect("SLOW_DEMO_KEY")
 ```
 
 ### Embedding Text
@@ -41,7 +41,7 @@ sentences = c(
 )
 
 # Returns a data frame with 512 features for each of the 3 sentences
-embeddings <- embed_sentences(sentences)
+embeddings <- embed_sentences(sentences, conn=conn)
 print(dim(embeddings)) # 3 512
 print(embeddings) # [[0.8556405305862427, ...], ...]
 
@@ -63,7 +63,7 @@ better results with a sentence-level embedding than with a word embedding.
 Getting a vector of features for images:
 
 ```r
-embeddings <- embed_image("/tmp/image.jpg")
+embeddings <- embed_image("/tmp/image.jpg", conn=conn)
 print(dim(embeddings)) # 1 2048
 print(embeddings) # [[0.8556405305862427, ...], ...]
 ```
