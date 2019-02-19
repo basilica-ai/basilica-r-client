@@ -6,11 +6,19 @@ features you can use to train or improve your models.
 
 ## Installation
 
-You can install the released version of basilica from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of this package from Google cloud:
+
+```r
+install.packages("https://storage.googleapis.com/basilica-r-client/basilica_0.0.1.tar.gz", repos=NULL)
+```
+
+or from Github (requires the `devtools` package):
 
 ``` r
 devtools::install_github("basilica-ai/basilica-r-client")
 ```
+
+(CRAN submission approval in progress)
 
 ## Examples
 

@@ -25,7 +25,7 @@ per user account.
 To run this example, you will need the following packages.
 
 ```
-install.packages("basilica", "dplyr", "ROCR")
+install.packages("dplyr", "ROCR")
 ```
 
 ## Step 1: Embedding all tweets
