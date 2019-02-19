@@ -6,4 +6,4 @@ doc
 .RData
 basilica.Rcheck/
 .Renviron
-*.tar.gz
+*.gz
