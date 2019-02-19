@@ -2,7 +2,8 @@ library(httr)
 library(RCurl)
 
 FILE_SIZE_LIMT <- 2097152
-USER_AGENT <- paste("Basilica R Client (", packageVersion("basilica") ,")")
+USER_AGENT <-
+  paste("Basilica R Client (", packageVersion("basilica") , ")")
 
 basilica_connection <- new.env()
 basilica_connection$name <- "basilica-env"
@@ -32,7 +33,8 @@ connect <- function(auth_key = character(),
   } else {
     basilica_connection$server <- server
   }
-  result <- as.environment(as.list(basilica_connection, all.names=TRUE))
+  result <-
+    as.environment(as.list(basilica_connection, all.names = TRUE))
   return(result)
 }
 
@@ -41,7 +43,9 @@ get_connection <- function(conn = environment()) {
     return(conn)
   }
   if (!exists("auth_key", envir = basilica_connection)) {
-    stop("No basilica connection created or invalid connection passed. Be sure to create a connection with `basilica::connect`.")
+    stop(
+      "No basilica connection created or invalid connection passed. Be sure to create a connection with `basilica::connect`."
+    )
     return()
   }
   return(basilica_connection)
@@ -69,7 +73,7 @@ embed_sentence <- function(sentence = character(),
     conn = conn,
     timeout = timeout
   )
-  result <- response[1, ]
+  result <- response[1,]
   return(result)
 }
 
@@ -119,12 +123,14 @@ embed_image <- function(image = raw(),
             "`)")
     stop(msg)
   }
-  response <- embed_images(list(image),
-                           model = model,
-                           version = version,
-                           conn = conn,
-                           timeout = timeout)
-  result <- response[1, ]
+  response <- embed_images(
+    list(image),
+    model = model,
+    version = version,
+    conn = conn,
+    timeout = timeout
+  )
+  result <- response[1,]
   return(result)
 }
 
@@ -203,7 +209,7 @@ embed_image_file <- function(image_path = character(),
     conn = conn,
     timeout = timeout
   )
-  result <- response[1, ]
+  result <- response[1,]
   return(result)
 }
 

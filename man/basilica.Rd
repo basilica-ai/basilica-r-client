@@ -6,7 +6,10 @@
 \alias{basilica-package}
 \title{Basilica}
 \description{
-Basilica allows you to turn your images and natural language text into features.
+Extract features from your images and natural language text. This
+  package provides several 'embed_*' functions that return a vector of features
+  (embeddings) you can easily feed into a regression or any other type of model.
+  The package uses the Basilica.ai API.
 }
 \section{Creating an API key}{
 

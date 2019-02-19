@@ -4,7 +4,8 @@ AUTH_KEY <- '05e19f1c-39de-ed9c-ae42-feab42f5f84d'
 SERVER <- "https://api.basilica.ai"
 
 CAT_PATH <- system.file("extdata", "cat.jpg", package = "basilica")
-CAT2_PATH <- system.file("extdata", "cat2.jpg", package = "basilica")
+CAT2_PATH <-
+  system.file("extdata", "cat2.jpg", package = "basilica")
 DOG_PATH <- system.file("extdata", "dog.jpg", package = "basilica")
 
 # We're explicitly testing that images are too big and CRAN doesn't allow for
@@ -24,7 +25,7 @@ describe("connect()", {
     expect_error(basilica::connect(), "An `auth_key` must be provided.")
     expect_error(basilica::connect(""), "An `auth_key` must be provided.")
   })
-
+  
   it("should save the auth_key and server globally", {
     auth_key <- "WOW_KEY"
     server <- "http://api.localhost:8000"
@@ -32,7 +33,7 @@ describe("connect()", {
     expect_equivalent(basilica_connection$auth_key, auth_key)
     expect_equivalent(basilica_connection$server, server)
   })
-
+  
   it("should save the auth_key and server to a connection", {
     auth_key <- "WOW_KEY"
     server <- "http://api.localhost:8000"
@@ -52,19 +53,19 @@ describe("embed_sentence", {
       }
       expect_error(
         basilica::embed_sentence("hello"),
-          "No basilica connection created or invalid connection passed. Be sure to create a connection with `basilica::connect`."
+        "No basilica connection created or invalid connection passed. Be sure to create a connection with `basilica::connect`."
       )
     })
   })
-
+  
   describe("With Connection", {
     conn <- NULL
     setup({
       conn <<- basilica::connect("SLOW_DEMO_KEY", SERVER)
     })
-
+    
     it("should return back a vector", {
-      result <- basilica::embed_sentence("hello", conn=conn)
+      result <- basilica::embed_sentence("hello", conn = conn)
       expect_equal(typeof(result), "double")
       expect_equal(is.vector(result), TRUE)
       expect_equal(length(result), 768)
@@ -80,38 +81,40 @@ describe("embed_sentences", {
       }
       expect_error(
         basilica::embed_sentences(c("hello")),
-          "No basilica connection created or invalid connection passed. Be sure to create a connection with `basilica::connect`."
+        "No basilica connection created or invalid connection passed. Be sure to create a connection with `basilica::connect`."
       )
     })
   })
-
+  
   describe("With Connection", {
     conn <- NULL
     setup({
       conn <<- basilica::connect(AUTH_KEY, SERVER)
     })
-
+    
     it("should return back a matrix when provided a c", {
-      result <- basilica::embed_sentences(c("hello", "wow", "great"), conn=conn)
+      result <-
+        basilica::embed_sentences(c("hello", "wow", "great"), conn = conn)
       expect_equal(typeof(result), "double")
       expect_equal(is.matrix(result), TRUE)
       expect_equal(dim(result), as.integer(c(3, 512)))
     })
-
+    
     it("should return back a matrix when provided a list", {
-      result <- basilica::embed_sentences(list("hello", "wow", "great"), conn=conn)
+      result <-
+        basilica::embed_sentences(list("hello", "wow", "great"), conn = conn)
       expect_equal(typeof(result), "double")
       expect_equal(is.matrix(result), TRUE)
       expect_equal(dim(result), as.integer(c(3, 512)))
     })
-
+    
     it("should return correct results", {
       sentences = list(
         "This is a sentence!",
         "This is a similar sentence!",
         "I don't think this sentence is very similar at all..."
       )
-      result <- basilica::embed_sentences(sentences, conn=conn)
+      result <- basilica::embed_sentences(sentences, conn = conn)
       expect_equal(typeof(result), "double")
       expect_equal(is.matrix(result), TRUE)
       expect_equal(dim(result), as.integer(c(3, 512)))
@@ -130,43 +133,44 @@ describe("embed_image_file", {
       }
       expect_error(
         basilica::embed_image_file(CAT_PATH),
-          "No basilica connection created or invalid connection passed. Be sure to create a connection with `basilica::connect`."
+        "No basilica connection created or invalid connection passed. Be sure to create a connection with `basilica::connect`."
       )
     })
   })
-
+  
   describe("With Connection", {
     conn <- NULL
     setup({
       conn <<- basilica::connect(AUTH_KEY, SERVER)
     })
-
+    
     it("should return back a vector", {
-      result <- basilica::embed_image_file(CAT_PATH, conn=conn)
+      result <- basilica::embed_image_file(CAT_PATH, conn = conn)
       expect_equal(typeof(result), "double")
       expect_equal(is.vector(result), TRUE)
       expect_equal(length(result), 2048)
     })
-
+    
     it("should throw an error if an non existent path is provided", {
       expect_error(
-        basilica::embed_image_file("../../inst/extdata/image-doesnt-exist.jpg", conn=conn),
+        basilica::embed_image_file("../../inst/extdata/image-doesnt-exist.jpg", conn =
+                                     conn),
         "*The specified file path*"
       )
     })
-
+    
     it("should throw an error if the image is too big", {
       skip_if(CAT_PATH_TOO_BIG == "")
       expect_error(
-        basilica::embed_image_file(CAT_PATH_TOO_BIG, conn=conn),
+        basilica::embed_image_file(CAT_PATH_TOO_BIG, conn = conn),
         "*The size of the specified file*"
       )
     })
-
+    
     it("should return accurate results" , {
-      cat1 <- basilica::embed_image_file(CAT_PATH, conn=conn)
-      cat2 <- basilica::embed_image_file(CAT2_PATH, conn=conn)
-      dog <- basilica::embed_image_file(DOG_PATH, conn=conn)
+      cat1 <- basilica::embed_image_file(CAT_PATH, conn = conn)
+      cat2 <- basilica::embed_image_file(CAT2_PATH, conn = conn)
+      dog <- basilica::embed_image_file(DOG_PATH, conn = conn)
       c1 = cor(cat1, cat2)
       c2 = cor(cat1, dog)
       expect_gt(c1, c2)
@@ -182,41 +186,45 @@ describe("embed_image_files", {
       }
       expect_error(
         basilica::embed_image_files(CAT_PATH),
-          "No basilica connection created or invalid connection passed. Be sure to create a connection with `basilica::connect`."
+        "No basilica connection created or invalid connection passed. Be sure to create a connection with `basilica::connect`."
       )
     })
   })
-
+  
   describe("With Connection", {
     conn <- NULL
     setup({
       conn <<- basilica::connect("SLOW_DEMO_KEY", SERVER)
     })
-
+    
     it("should return back a vector", {
-      result <- basilica::embed_image_files(c(CAT_PATH, CAT2_PATH), conn=conn)
+      result <-
+        basilica::embed_image_files(c(CAT_PATH, CAT2_PATH), conn = conn)
       expect_equal(typeof(result), "double")
       expect_equal(is.matrix(result), TRUE)
       expect_equal(is.vector(result[1, ]), TRUE)
       expect_equal(dim(result), as.integer(c(2, 2048)))
     })
-
+    
     it("should throw an error if a non existent path is provided", {
-      expect_error(basilica::embed_image_files(c(
-        CAT_PATH, "../../data/image-doesnt-exist.jpg"
-      ), conn=conn),
+      expect_error(basilica::embed_image_files(
+        c(CAT_PATH, "../../data/image-doesnt-exist.jpg"),
+        conn = conn
+      ),
       "*The specified file path*")
     })
-
+    
     it("should throw an error if the image is too big", {
       skip_if(CAT_PATH_TOO_BIG == "")
-      expect_error(basilica::embed_image_files(c(CAT2_PATH, CAT_PATH_TOO_BIG), conn=conn),
+      expect_error(basilica::embed_image_files(c(CAT2_PATH, CAT_PATH_TOO_BIG), conn =
+                                                 conn),
                    "*The size of the specified file*")
     })
-
+    
     it("should return accurate results" , {
       result <-
-        basilica::embed_image_files(c(CAT_PATH, CAT2_PATH, DOG_PATH), conn=conn)
+        basilica::embed_image_files(c(CAT_PATH, CAT2_PATH, DOG_PATH), conn =
+                                      conn)
       c1 = cor(result[1, ], result[2, ])
       c2 = cor(result[1, ], result[3, ])
       expect_gt(c1, c2)
@@ -232,42 +240,45 @@ describe("embed_image", {
       }
       expect_error(
         basilica::embed_image(open_file(CAT_PATH)),
-          "No basilica connection created or invalid connection passed. Be sure to create a connection with `basilica::connect`."
+        "No basilica connection created or invalid connection passed. Be sure to create a connection with `basilica::connect`."
       )
     })
   })
-
+  
   describe("With Connection", {
     conn <- NULL
     setup({
       conn <<- basilica::connect("SLOW_DEMO_KEY", SERVER)
     })
-
+    
     it("should return back a vector", {
-      result <- basilica::embed_image(open_file(CAT_PATH), conn=conn)
+      result <- basilica::embed_image(open_file(CAT_PATH), conn = conn)
       expect_equal(typeof(result), "double")
       expect_equal(is.vector(result), TRUE)
       expect_equal(length(result), 2048)
     })
-
+    
     it("should throw an error if a value that is not of type `raw` is passed",
        {
          expect_error(
-           basilica::embed_image("asdfasdfsd", conn=conn),
+           basilica::embed_image("asdfasdfsd", conn = conn),
            "*The provided `image` is not of type `raw`*"
          )
        })
-
+    
     it("should throw an error if the image is too big", {
       skip_if(CAT_PATH_TOO_BIG == "")
-      expect_error(basilica::embed_image(open_file(CAT_PATH_TOO_BIG), conn=conn),
-                   "*The size of one of the values in `images`*")
+      expect_error(
+        basilica::embed_image(open_file(CAT_PATH_TOO_BIG), conn = conn),
+        "*The size of one of the values in `images`*"
+      )
     })
-
+    
     it("should return accurate results" , {
-      cat1 <- basilica::embed_image(open_file(CAT_PATH), conn=conn)
-      cat2 <- basilica::embed_image(open_file(CAT2_PATH), conn=conn)
-      dog <- basilica::embed_image(open_file(DOG_PATH), conn=conn)
+      cat1 <- basilica::embed_image(open_file(CAT_PATH), conn = conn)
+      cat2 <-
+        basilica::embed_image(open_file(CAT2_PATH), conn = conn)
+      dog <- basilica::embed_image(open_file(DOG_PATH), conn = conn)
       c1 = cor(cat1, cat2)
       c2 = cor(cat1, dog)
       expect_gt(c1, c2)
@@ -281,48 +292,51 @@ describe("embed_images", {
       rm("auth_key", envir = basilica_connection)
       expect_error(
         basilica::embed_images(open_file(CAT_PATH)),
-          "No basilica connection created or invalid connection passed. Be sure to create a connection with `basilica::connect`."
+        "No basilica connection created or invalid connection passed. Be sure to create a connection with `basilica::connect`."
       )
     })
   })
-
+  
   describe("With Connection", {
     conn <- NULL
     setup({
       conn <<- basilica::connect("SLOW_DEMO_KEY", SERVER)
     })
-
+    
     it("should return back a vector", {
       result <-
-        basilica::embed_images(list(open_file(CAT_PATH), open_file(CAT2_PATH)), conn=conn)
+        basilica::embed_images(list(open_file(CAT_PATH), open_file(CAT2_PATH)), conn =
+                                 conn)
       expect_equal(typeof(result), "double")
       expect_equal(is.matrix(result), TRUE)
       expect_equal(is.vector(result[1, ]), TRUE)
       expect_equal(dim(result), as.integer(c(2, 2048)))
     })
-
+    
     it("should throw an error if a value that is not of type `raw` is passed",
        {
          expect_error(
-           basilica::embed_images(list(open_file(CAT_PATH), "asdfasdfsd"), conn=conn),
+           basilica::embed_images(list(open_file(CAT_PATH), "asdfasdfsd"), conn = conn),
            "*One of the values in `images` is not of type `raw`*"
          )
        })
-
+    
     it("should throw an error if the image is too big", {
       skip_if(CAT_PATH_TOO_BIG == "")
       files = list(open_file(CAT2_PATH), open_file(CAT_PATH_TOO_BIG))
-      expect_error(basilica::embed_images(files, conn=conn),
-                   "*The size of one of the values in `images`*")
+      expect_error(
+        basilica::embed_images(files, conn = conn),
+        "*The size of one of the values in `images`*"
+      )
     })
-
+    
     it("should return accurate results" , {
       result <-
         basilica::embed_images(list(
           open_file(CAT_PATH),
           open_file(CAT2_PATH),
           open_file(DOG_PATH)
-        ), conn=conn)
+        ), conn = conn)
       c1 = cor(result[1, ], result[2, ])
       c2 = cor(result[1, ], result[3, ])
       expect_gt(c1, c2)
