@@ -20,7 +20,7 @@ This is a basic example which shows you how to solve a common problem:
 
 Before embedding an image or text (getting a vector of features), you must first
 connect to the API with a demo key. `SLOW_DEMO_KEY` is a key you can use for
-testing with a low per-week limit, but you can create API keys for free at [www.basilica.ai](https://www.basilica.ai/register).
+testing with a low per-week limit, but you can create API keys for free at [www.basilica.ai](https://www.basilica.ai/register/).
 
 ``` r
 library('basilica')

@@ -1,12 +1,15 @@
 Package: basilica
-Title: Basilica
+Title: Deep feature extraction for images and natural language text
 Version: 0.0.1
 Authors@R:
     person(given = "Jorge",
            family = "Silva",
            role = c("aut", "cre"),
            email = "jorge@basilica.ai")
-Description: Basilica allows you to turn your images and natural language text into features.
+Description: Extract features from your images and natural language text. This
+  package provides several 'embed_*' functions that return a vector of features
+  (embeddings) you can easily feed into a regression or any other type of model.
+  The package uses the Basilica.ai API.
 License: MIT + file LICENSE
 URL: https://www.basilica.ai
 BugReports: https://github.com/basilica-ai/basilica-r-client/issues

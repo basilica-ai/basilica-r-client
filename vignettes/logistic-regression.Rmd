@@ -43,7 +43,7 @@ Now that we've loaded the JSON files, we can embedded the text of these tweets
 using Basilica.
 
     library(basilica)
-    conn <- connect("28c4dab5-27f1-52a7-508e-527dd234224c", "http://api.localhost:8000")
+    conn <- connect("05e19f1c-39de-ed9c-ae42-feab42f5f84d")
 
     embeddings <- rbind(embed_sentences(bill[, 7], conn=conn), embed_sentences(kanye[, 7], conn=conn)) # 7 is the index of the text
 
