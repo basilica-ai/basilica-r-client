@@ -1,6 +1,6 @@
 # Basilica R Client: Deep Feature Extraction for Images and Text
 
-### [It's Like Word2Vec For Anything](https://www.basilica.ai)
+## [Word2Vec For Anything](https://www.basilica.ai)
 
 [Basilica](https://www.basilica.ai) allows you to easily augment your models with images and text. You send
 us an image or a snippet of natural language text and we send you a vector of
