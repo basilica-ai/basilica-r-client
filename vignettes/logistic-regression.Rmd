@@ -20,7 +20,7 @@ In this example, we'll train a logistic regression to classify tweets using only
 the natural language text found in these tweets. We'll only need about 800 tweets
 per user account.
 
-### Setup
+## Setup
 
 To run this example, you will need the following packages.
 

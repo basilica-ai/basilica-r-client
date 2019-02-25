@@ -1,0 +1,48 @@
+Basilica provides 2 functions for working with images:
+
+-   `embed_sentence`
+-   `embed_sentences`
+
+The `embed_sentence` function takes a single `characther` vector (a
+string) and returns a vector of features. The `embed_sentences`
+functions takes a list of `character` vectors returns a matrix with a
+feature vector on every row.
+
+#### `embed_sentece`
+
+``` {.r}
+sentences <- c(
+  "This is a sentence!",
+  "This is a similar sentence!",
+  "I don't think this sentence is very similar at all..."
+)
+
+library('basilica')
+conn <- connect("SLOW_DEMO_KEY")
+
+embeddings <- list()
+embeddings[[1]] <- embed_sentence(sentence[[1]], conn=conn)
+embeddings[[2]] <- embed_sentence(sentence[[2]], conn=conn)
+embeddings[[3]] <- embed_sentence(sentence[[3]], conn=conn)
+
+print(cor(embeddings[[1]], embeddings[[2]]))
+print(cor(embeddings[[1]], embeddings[[3]]))
+```
+
+#### `embed_senteces`
+
+``` {.r}
+sentences <- c(
+  "This is a sentence!",
+  "This is a similar sentence!",
+  "I don't think this sentence is very similar at all..."
+)
+
+library('basilica')
+conn <- connect("SLOW_DEMO_KEY")
+
+embeddings <- embed_sentences(sentences, conn=conn)
+
+print(cor(embeddings[1,], embeddings[2,]))
+print(cor(embeddings[1,], embeddings[3,]))
+```
