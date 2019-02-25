@@ -9,3 +9,4 @@ basilica.Rcheck/
 *.gz
 docs/_build
 *.pyc
+docs/venv
