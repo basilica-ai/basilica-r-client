@@ -216,7 +216,7 @@ embed_image_file <- function(image_path = character(),
 #' embed_image_files
 #'
 #' Get a vector of features for a list images
-#' @param image_paths List of file path to images (JPEG or PNG)
+#' @param image_paths List of file paths to images (JPEG or PNG)
 #' @param model Name of the image model you wish to use. (Default: `generic`)
 #' @param version Version of the image model you wish to use. (Default: `default`)
 #' @param conn Basilica connection. Must be created with the `connect` function (Default: Global `basilica_connection`)

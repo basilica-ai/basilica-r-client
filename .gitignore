@@ -7,3 +7,5 @@ doc
 basilica.Rcheck/
 .Renviron
 *.gz
+docs/_build
+*.pyc
