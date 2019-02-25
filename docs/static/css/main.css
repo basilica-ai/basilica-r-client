@@ -1,0 +1,42 @@
+.basilica-languages-menu {
+  display: block;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+
+.basilica-languages-menu .languages {
+  display: inline-block;
+}
+
+.basilica-languages-menu a {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.basilica-languages-menu a:first-child {
+  margin-left: 0px;
+}
+
+.basilica-languages-menu a span {
+  display: inline-block;
+  color: #cdcdcd;
+  margin: 12px 5px 0 5px;
+  opacity: 0.8;
+}
+
+.basilica-languages-menu a.active span {
+  display: inline-block;
+  color: white;
+  opacity: 1;
+}
+
+.wy-side-nav-search .basilica-languages-menu a img {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 0;
+  margin: 0;
+  background: none;
+  padding: 0;
+  margin-top: -6px;
+}

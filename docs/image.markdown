@@ -1,38 +1,18 @@
----
-title: "Working with images"
-author: "Jorge Silva"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-output:
-  md_document:
-    variant: markdown_github
-vignette: >
-  %\VignetteIndexEntry{Working with images: Basic Usage}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
 Basilica provides 4 functions for working with images:
 
-- `embed_image`
-- `embed_images`
-- `embed_image_file`
-- `embed_image_files`
+-   `embed_image`
+-   `embed_images`
+-   `embed_image_file`
+-   `embed_image_files`
 
-The `embed_image_file` and `embed_image_files` functions take a `characther` vector
-(a string) with a file path pointing to an image. On the other hand, `embed_image`
-and `embed_images` take a `raw` vector obtained through `readBin`.
+The `embed_image_file` and `embed_image_files` functions take a
+`characther` vector (a string) with a file path pointing to an image. On
+the other hand, `embed_image` and `embed_images` take a `raw` vector
+obtained through `readBin`.
 
 #### `embed_image_file`
 
-```r
+``` {.r}
 download.file("https://www.basilica.ai/static/images/tutorial/dog-test-1.jpg", "/tmp/dog1.jpg")
 download.file("https://www.basilica.ai/static/images/tutorial/dog-test-2.jpg", "/tmp/dog2.jpg")
 download.file("https://www.basilica.ai/static/images/tutorial/cat-test-1.jpg", "/tmp/cat.jpg")
@@ -51,7 +31,7 @@ print(cor(embeddings[[1]], embeddings[[3]]))
 
 #### `embed_image_files`
 
-```r
+``` {.r}
 download.file("https://www.basilica.ai/static/images/tutorial/dog-test-1.jpg", "/tmp/dog1.jpg")
 download.file("https://www.basilica.ai/static/images/tutorial/dog-test-2.jpg", "/tmp/dog2.jpg")
 download.file("https://www.basilica.ai/static/images/tutorial/cat-test-1.jpg", "/tmp/cat.jpg")
@@ -68,7 +48,7 @@ print(cor(embeddings[1,], embeddings[3,]))
 
 #### `embed_image`
 
-```r
+``` {.r}
 download.file("https://www.basilica.ai/static/images/tutorial/dog-test-1.jpg", "/tmp/dog1.jpg")
 download.file("https://www.basilica.ai/static/images/tutorial/dog-test-2.jpg", "/tmp/dog2.jpg")
 download.file("https://www.basilica.ai/static/images/tutorial/cat-test-1.jpg", "/tmp/cat.jpg")
@@ -99,7 +79,7 @@ print(cor(embeddings[[1]], embeddings[[3]]))
 
 #### `embed_images`
 
-```r
+``` {.r}
 download.file("https://www.basilica.ai/static/images/tutorial/dog-test-1.jpg", "/tmp/dog1.jpg")
 download.file("https://www.basilica.ai/static/images/tutorial/dog-test-2.jpg", "/tmp/dog2.jpg")
 download.file("https://www.basilica.ai/static/images/tutorial/cat-test-1.jpg", "/tmp/cat.jpg")

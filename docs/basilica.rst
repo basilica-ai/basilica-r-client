@@ -1,9 +1,10 @@
 .. _basilica:
 
 Basilica R Client
-======================
+=================
 
 .. toctree::
+   :hidden:
 
    connect <./basilica.html?ref=://#basilica.connect>
    embed_sentence <./basilica.html?ref=://#basilica.embed_sentence>

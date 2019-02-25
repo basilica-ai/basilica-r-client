@@ -17,16 +17,17 @@ from recommonmark.parser import CommonMarkParser
 import os
 import sys
 sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(1, os.path.dirname(os.path.abspath('.')))
 
 
 # -- Project information -----------------------------------------------------
 
 project = u'Basilica R Client'
-copyright = u'2019, Jorge Silva'
+copyright = u'2019, Basilica Corp.'
 author = u'Jorge Silva'
 
 # The short X.Y version
-version = u''
+version = u'0.0.1'
 # The full version, including alpha/beta/rc tags
 release = u'0.0.1'
 
@@ -45,7 +46,7 @@ extensions = ['sphinx.ext.autodoc', 'm2r']
 source_suffix = ['.rst', '.md']
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['.templates']
+templates_path = ['templates']
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -88,7 +89,7 @@ html_theme = 'sphinx_rtd_theme'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['.static']
+html_static_path = ['static']
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
@@ -187,3 +188,7 @@ def setup(app):
             'enable_auto_toc_tree': False,
             'auto_toc_tree_section': False
             }, True)
+    app.add_stylesheet('css/main.css')
+
+html_favicon = 'basilica.ico'
+html_short_title = "Basilica R Client"

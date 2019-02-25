@@ -3,11 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Basilica R Client's documentation!
-=============================================
+Basilica R Client
+=================
 
 .. toctree::
    :maxdepth: 2
 
-   README.md
+   quickstart
    basilica
+   vignettes
+
+.. mdinclude:: ./README.md

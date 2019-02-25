@@ -1,0 +1,16 @@
+{% extends "!layout.html" %}
+
+{% block sidebartitle %}
+  {{ super() }}
+  <div class="basilica-languages-menu">
+    <span class="languages">Languages:</span>
+    <a href="https://basilica-r-client.readthedocs.io/en/latest/" class="active">
+      <img src="_static/r.png">
+      <span>R</span>
+    </a>
+    <a href="https://basilica-client.readthedocs.io/en/latest/basilica.html">
+      <img src="_static/pyton-bw.png">
+      <span>Python</span>
+    </a>
+  </div>
+{% endblock %}
