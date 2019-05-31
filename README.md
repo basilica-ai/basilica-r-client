@@ -11,7 +11,7 @@ features you can use to train your models.
 You can install the released version of this package from Google cloud:
 
 ```r
-install.packages("https://storage.googleapis.com/basilica-r-client/basilica_0.0.1.tar.gz", repos=NULL)
+install.packages("https://storage.googleapis.com/basilica-r-client/basilica_0.0.2.tar.gz", repos=NULL)
 ```
 
 or from Github (requires the `devtools` package):

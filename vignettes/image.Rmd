@@ -3,9 +3,6 @@ title: "Working with images"
 author: "Jorge Silva"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
-output:
-  md_document:
-    variant: markdown_github
 vignette: >
   %\VignetteIndexEntry{Working with images: Basic Usage}
   %\VignetteEngine{knitr::rmarkdown}

@@ -8,7 +8,7 @@ embed_image_files(image_paths = list(), model = "generic",
   version = "default", conn = environment(), timeout = 5)
 }
 \arguments{
-\item{image_paths}{List of file path to images (JPEG or PNG)}
+\item{image_paths}{List of file paths to images (JPEG or PNG)}
 
 \item{model}{Name of the image model you wish to use. (Default: `generic`)}
 

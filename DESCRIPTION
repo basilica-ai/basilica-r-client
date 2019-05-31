@@ -1,6 +1,6 @@
 Package: basilica
 Title: Deep Feature Extraction for Images and Natural Language Text
-Version: 0.0.1
+Version: 0.0.2
 Authors@R:
     person(given = "Jorge",
            family = "Silva",
