@@ -29,7 +29,7 @@ connect <- function(auth_key = character(),
   }
   basilica_connection$auth_key <- auth_key
   if (length(server) == 0 || nchar(server) == 0) {
-    basilica_connection$server <- "https://api.basilica.ai"
+    basilica_connection$server <- "http://api.basilica.ai"
   } else {
     basilica_connection$server <- server
   }
