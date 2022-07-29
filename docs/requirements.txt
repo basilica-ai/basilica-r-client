@@ -8,7 +8,7 @@ imagesize==1.1.0
 Jinja2>=2.10.1
 m2r==0.2.1
 MarkupSafe==1.1.1
-mistune==0.8.4
+mistune==2.0.3
 packaging==19.0
 Pygments==2.3.1
 pyparsing==2.3.1
